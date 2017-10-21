@@ -2,8 +2,6 @@ package com.example.coinmarket.restconnection;
 
 
 import com.example.coinmarket.restconnection.response.CryptoCurrency;
-import com.example.coinmarket.restconnection.response.CryptoCurrencyResponse;
-import com.google.gson.JsonArray;
 
 import java.util.List;
 

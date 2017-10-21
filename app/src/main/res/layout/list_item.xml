@@ -7,7 +7,7 @@
     android:paddingRight="8dp">
 
     <TextView
-        android:id="@+id/word"
+        android:id="@+id/name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,8 +16,6 @@
         android:clickable="true"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textSize="18sp"
-
-        />
+        android:textSize="18sp"/>
 
 </LinearLayout>

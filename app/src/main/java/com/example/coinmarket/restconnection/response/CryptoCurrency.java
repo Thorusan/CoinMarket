@@ -11,42 +11,55 @@ public class CryptoCurrency {
     @SerializedName("id")
     @Expose
     private String id;
+
     @SerializedName("name")
     @Expose
     private String name;
+
     @SerializedName("symbol")
     @Expose
     private String symbol;
+
     @SerializedName("rank")
     @Expose
     private Integer rank;
+
     @SerializedName("price_usd")
     @Expose
     private Double priceUsd;
+
     @SerializedName("price_btc")
     @Expose
     private Double priceBtc;
+
     @SerializedName("24h_volume_usd")
     @Expose
     private Double _24hVolumeUsd;
+
     @SerializedName("market_cap_usd")
     @Expose
     private Double marketCapUsd;
+
     @SerializedName("available_supply")
     @Expose
     private Double availableSupply;
+
     @SerializedName("total_supply")
     @Expose
     private Double totalSupply;
+
     @SerializedName("percent_change_1h")
     @Expose
     private Double percentChange1h;
+
     @SerializedName("percent_change_24h")
     @Expose
     private Double percentChange24h;
+
     @SerializedName("percent_change_7d")
     @Expose
     private Double percentChange7d;
+
     @SerializedName("last_updated")
     @Expose
     private Integer lastUpdated;
