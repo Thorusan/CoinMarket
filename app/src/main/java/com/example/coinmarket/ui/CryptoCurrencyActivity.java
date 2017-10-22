@@ -48,6 +48,7 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
             // set toolbar for Settings
             setSupportActionBar(toolbar);
 
+            final String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
             //if (currency == null) currency ="USD"; // default currenty is USD
 
             final int limit = 100; // limit top results
