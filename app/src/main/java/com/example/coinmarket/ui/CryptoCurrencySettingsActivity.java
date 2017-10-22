@@ -1,0 +1,97 @@
+package com.example.coinmarket.ui;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.example.thorus.coinmarket.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class CryptoCurrencySettingsActivity extends AppCompatActivity {
+
+    @BindView(R.id.radioCurrency)RadioGroup radioCurrencyGroup;
+    @BindView(R.id.radioUSD)RadioButton radioUSD;
+    @BindView(R.id.radioEUR)RadioButton radioEUR;
+    @BindView(R.id.radioCNY)RadioButton radioCNY;
+    @BindView(R.id.btnConfirm) Button btnConfirm;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_crypto_currency_settings);
+
+        // Bind views
+        ButterKnife.bind(this);
+
+        // This overrides the radiogroup onCheckListener
+        radioCurrencyGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener()
+        {
+            public void onCheckedChanged(RadioGroup group, int checkedId)
+            {
+                // This will get the radiobutton that has changed in its check state
+                RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                // This puts the value (true/false) into the variable
+                boolean isChecked = checkedRadioButton.isChecked();
+                // If the radiobutton that has changed in check state is now checked...
+                if (isChecked)  {
+                    // Changes the textview's text to "Checked: example radiobutton text"
+                    String text = "You have choosen the fiat currency: " + checkedRadioButton.getText();
+                    Toast.makeText(CryptoCurrencySettingsActivity.this, text, Toast.LENGTH_SHORT).show();
+                    selectedCurrency = checkedRadioButton.getText().toString();
+                }
+            }
+        });
+
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveCurrencyInPreference();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", selectedCurrency);
+
+                setResult(Activity.RESULT_OK, resultIntent);
+                CryptoCurrencySettingsActivity.this.finish();
+            }
+        });
+    }
+
+    /**
+     * Save selected currency to Shared Preferences
+     */
+    private void saveCurrencyInPreference() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        int selectedId = radioCurrencyGroup.getCheckedRadioButtonId();
+        switch (selectedId) {
+            case R.id.radioUSD:
+                editor.putString("curency", "USD");
+                break;
+            case R.id.radioEUR:
+                editor.putString("curency", "EUR");
+                break;
+            case R.id.radioCNY:
+                editor.putString("curency", "CNY");
+                break;
+            default:
+                editor.putString("curency", "USD");
+                break;
+        }
+        editor.commit();
+    }
+
+    private String selectedCurrency = "USD";
+}

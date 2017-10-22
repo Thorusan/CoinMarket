@@ -76,27 +76,27 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setSelectedPosition(position);
+            setSelectedPosition(position);
 
-                Intent intent = new Intent(activity, CryptoCurrencyDetailActivity.class);
+            Intent intent = new Intent(activity, CryptoCurrencyDetailActivity.class);
 
-                intent.putExtra("id", cryptoCurrencyList.get(position).getId());
-                intent.putExtra("name", cryptoCurrencyList.get(position).getName());
-                intent.putExtra("symbol", cryptoCurrencyList.get(position).getSymbol());
-                intent.putExtra("rank", cryptoCurrencyList.get(position).getRank());
-                intent.putExtra("priceUsd", cryptoCurrencyList.get(position).getPriceUsd());
-                //intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
-                intent.putExtra("_24hVolumeUsd", cryptoCurrencyList.get(position).get24hVolumeUsd());
-                intent.putExtra("marketCapUsd", cryptoCurrencyList.get(position).getMarketCapUsd());
-                intent.putExtra("availableSupply", cryptoCurrencyList.get(position).getAvailableSupply());
-                intent.putExtra("totalSupply", cryptoCurrencyList.get(position).getTotalSupply());
-                intent.putExtra("percentChange1h", cryptoCurrencyList.get(position).getPercentChange1h());
-                intent.putExtra("percentChange24h", cryptoCurrencyList.get(position).getPercentChange24h());
-                intent.putExtra("percentChange7d", cryptoCurrencyList.get(position).getPercentChange7d());
-                //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated());
+            intent.putExtra("id", cryptoCurrencyList.get(position).getId());
+            intent.putExtra("name", cryptoCurrencyList.get(position).getName());
+            intent.putExtra("symbol", cryptoCurrencyList.get(position).getSymbol());
+            intent.putExtra("rank", cryptoCurrencyList.get(position).getRank());
+            intent.putExtra("priceUsd", cryptoCurrencyList.get(position).getPriceUsd());
+            //intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
+            intent.putExtra("_24hVolumeUsd", cryptoCurrencyList.get(position).get24hVolumeUsd());
+            intent.putExtra("marketCapUsd", cryptoCurrencyList.get(position).getMarketCapUsd());
+            intent.putExtra("availableSupply", cryptoCurrencyList.get(position).getAvailableSupply());
+            intent.putExtra("totalSupply", cryptoCurrencyList.get(position).getTotalSupply());
+            intent.putExtra("percentChange1h", cryptoCurrencyList.get(position).getPercentChange1h());
+            intent.putExtra("percentChange24h", cryptoCurrencyList.get(position).getPercentChange24h());
+            intent.putExtra("percentChange7d", cryptoCurrencyList.get(position).getPercentChange7d());
+            //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated());
 
-                final int REQUEST_CODE = 123;  // The request code
-                activity.startActivityForResult(intent,REQUEST_CODE);
+            final int REQUEST_CODE = 123;  // The request code
+            activity.startActivityForResult(intent,REQUEST_CODE);
             }
         });
 

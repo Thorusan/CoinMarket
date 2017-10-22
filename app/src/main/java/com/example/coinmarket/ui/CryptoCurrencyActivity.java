@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -24,8 +25,9 @@ import butterknife.ButterKnife;
 
 public class CryptoCurrencyActivity extends AppCompatActivity implements RestDataCallback {
 
+    @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.edit_earch) EditText editWord;
+    @BindView(R.id.edit_search) EditText editWord;
     @BindView(R.id.btn_search) Button searchBtn;
 
     int touchPosition=-1;
@@ -37,14 +39,16 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         try {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.crypto_currency_activity);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);*/
 
+            // Bind views
             ButterKnife.bind(this);
 
+            // set toolbar for Settings
+            setSupportActionBar(toolbar);
+
+            // Retrofit network call for gettings the list of Cryptocurrencies
             String currency ="EUR";
             int limit = 10;
-
             RestServiceController controller = new RestServiceController(this, CryptoCurrencyActivity.this);
             controller.getCurrencyData(currency);
         } catch (Exception ex) {
@@ -64,11 +68,15 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return true;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, CryptoCurrencySettingsActivity.class);
+                startActivityForResult(intent,REQUEST_CODE_SETTINGS);
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -77,8 +85,11 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1){
+        if (requestCode == REQUEST_CODE_SETTINGS){
             if(resultCode == RESULT_OK){
+                if (data.hasExtra("currency")) {
+                    String selectedCurrency = data.getStringExtra("currency");
+                }
                 //here is the result
             }
             if (resultCode == RESULT_CANCELED) {
@@ -103,4 +114,6 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         recyclerView.setAdapter(cryptoCurrencyListAdapter);
 
     }
+
+    private static final int REQUEST_CODE_SETTINGS = 10;
 }
