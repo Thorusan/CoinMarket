@@ -32,7 +32,7 @@
             android:text="symbol"/>
 
         <TextView
-            android:id="@+id/priceUsd"
+            android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/symbol"
@@ -42,7 +42,7 @@
             android:id="@+id/_24hVolumeUsd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/priceUsd"
+            android:layout_below="@+id/price"
             android:text="priceUsd"/>
 
         <TextView
@@ -53,24 +53,17 @@
             android:text="marketCapUsd"/>
 
         <TextView
-            android:id="@+id/availableSupply"
+            android:id="@+id/priceBtc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/marketCapUsd"
-            android:text="availableSupply"/>
-
-        <TextView
-            android:id="@+id/totalSupply"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/availableSupply"
-            android:text="totalSupply"/>
+            android:text="priceBtc"/>
 
         <TextView
             android:id="@+id/percentChange1h"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/totalSupply"
+            android:layout_below="@+id/priceBtc"
             android:text="percentChange1h"/>
 
         <TextView
@@ -86,5 +79,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/percentChange24h"
             android:text="percentChange7d"/>
+
+        <TextView
+            android:id="@+id/totalSupply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/percentChange7d"
+            android:text="totalSupply"/>
+
+        <TextView
+            android:id="@+id/availableSupply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalSupply"
+            android:text="availableSupply"/>
 
     </RelativeLayout>

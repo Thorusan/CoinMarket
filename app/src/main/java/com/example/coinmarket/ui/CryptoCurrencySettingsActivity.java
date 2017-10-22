@@ -90,5 +90,5 @@ public class CryptoCurrencySettingsActivity extends AppCompatActivity {
         }
     }
 
-    private String selectedCurrency = "EUR";
+    private String selectedCurrency = "USD";
 }

@@ -24,21 +24,50 @@ public class CryptoCurrency {
     @Expose
     private Integer rank;
 
+
     @SerializedName("price_usd")
     @Expose
     private Double priceUsd;
+
+    @SerializedName("price_eur")
+    @Expose
+    private Double priceEur;
+
+    @SerializedName("price_cny")
+    @Expose
+    private Double priceCny;
+
 
     @SerializedName("price_btc")
     @Expose
     private Double priceBtc;
 
+
     @SerializedName("24h_volume_usd")
     @Expose
     private Double _24hVolumeUsd;
 
+    @SerializedName("24h_volume_eur")
+    @Expose
+    private Double _24hVolumeEur;
+
+    @SerializedName("24h_volume_cny")
+    @Expose
+    private Double _24hVolumeCny;
+
+
     @SerializedName("market_cap_usd")
     @Expose
     private Double marketCapUsd;
+
+    @SerializedName("market_cap_eur")
+    @Expose
+    private Double marketCapEur;
+
+    @SerializedName("market_cap_cny")
+    @Expose
+    private Double marketCapCny;
+
 
     @SerializedName("available_supply")
     @Expose
@@ -176,4 +205,51 @@ public class CryptoCurrency {
         this.lastUpdated = lastUpdated;
     }
 
+    public Double getPriceEur() {
+        return priceEur;
+    }
+
+    public Double getPriceCny() {
+        return priceCny;
+    }
+
+    public Double get24hVolumeEur() {
+        return _24hVolumeEur;
+    }
+
+    public Double get24hVolumeCny() {
+        return _24hVolumeCny;
+    }
+
+    public Double getMarketCapEur() {
+        return marketCapEur;
+    }
+
+    public Double getMarketCapCny() {
+        return marketCapCny;
+    }
+
+    public void setPriceEur(Double priceEur) {
+        this.priceEur = priceEur;
+    }
+
+    public void setPriceCny(Double priceCny) {
+        this.priceCny = priceCny;
+    }
+
+    public void set_24hVolumeEur(Double _24hVolumeEur) {
+        this._24hVolumeEur = _24hVolumeEur;
+    }
+
+    public void set_24hVolumeCny(Double _24hVolumeCny) {
+        this._24hVolumeCny = _24hVolumeCny;
+    }
+
+    public void setMarketCapEur(Double marketCapEur) {
+        this.marketCapEur = marketCapEur;
+    }
+
+    public void setMarketCapCny(Double marketCapCny) {
+        this.marketCapCny = marketCapCny;
+    }
 }

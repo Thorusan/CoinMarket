@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.example.thorus.coinmarket.R;
 
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -20,9 +19,10 @@ public class CryptoCurrencyDetailActivity extends AppCompatActivity {
     @BindView(R.id.name) TextView name;
     @BindView(R.id.rank) TextView rank;
     @BindView(R.id.symbol) TextView symbol;
-    @BindView(R.id.priceUsd) TextView priceUsd;
-    @BindView(R.id._24hVolumeUsd) TextView _24hVolumeUsd;
-    @BindView(R.id.marketCapUsd) TextView marketCapUsd;
+    @BindView(R.id.price) TextView price;
+    @BindView(R.id.priceBtc) TextView priceBtc;
+    @BindView(R.id._24hVolumeUsd) TextView _24hVolume;
+    @BindView(R.id.marketCapUsd) TextView marketCap;
     @BindView(R.id.availableSupply) TextView availableSupply;
     @BindView(R.id.totalSupply) TextView totalSupply;
     @BindView(R.id.percentChange1h) TextView percentChange1h;
@@ -53,13 +53,15 @@ public class CryptoCurrencyDetailActivity extends AppCompatActivity {
 
                 rank.setText("Rank: "+String.valueOf(getIntent().getIntExtra("rank",0)));
                 symbol.setText("symbol: "+getIntent().getStringExtra("symbol"));
-                priceUsd.setText("Price: "+String.valueOf(getIntent().getDoubleExtra("priceUsd",0.0)));
+                price.setText("Price: "+String.valueOf(getIntent().getDoubleExtra("price",0.0)));
 
-                String _24hVolumeUsdFormattedValue = String.valueOf(formatter.format(getIntent().getDoubleExtra("_24hVolumeUsd",0)));
-                _24hVolumeUsd.setText("24h Volume: "+_24hVolumeUsdFormattedValue);
+                priceBtc.setText("Price in bitcoin: "+String.valueOf(getIntent().getDoubleExtra("priceBtc",0.0)));
 
-                String marketCapUsdFormattedValue = String.valueOf(formatter.format(getIntent().getDoubleExtra("marketCapUsd",0)));
-                marketCapUsd.setText("Market cap: "+marketCapUsdFormattedValue);
+                String _24hVolumeFormattedValue = String.valueOf(formatter.format(getIntent().getDoubleExtra("_24hVolume",0)));
+                _24hVolume.setText("24h Volume: "+_24hVolumeFormattedValue);
+
+                String marketCapFormattedValue= String.valueOf(formatter.format(getIntent().getDoubleExtra("marketCap",0)));
+                marketCap.setText("Market cap: "+marketCapFormattedValue);
 
                 String availableSupplyFormattedValue = String.valueOf(formatter.format(getIntent().getDoubleExtra("availableSupply",0)));
                 availableSupply.setText("Available supply: "+availableSupplyFormattedValue);

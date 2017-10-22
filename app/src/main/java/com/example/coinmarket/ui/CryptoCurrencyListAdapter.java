@@ -24,16 +24,17 @@ import butterknife.ButterKnife;
  */
 
 public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurrencyListAdapter.RecyclerViewHolder> {
+    private final String selectedCurrency;
     private Activity activity;
-
 
     private int selectedPosition = 0;
     private String selectedWord=null;
     private List<CryptoCurrency> cryptoCurrencyList;
 
-    public CryptoCurrencyListAdapter(Activity context, List<CryptoCurrency> currencyList) {
+    public CryptoCurrencyListAdapter(Activity context, List<CryptoCurrency> currencyList, String currency) {
         this.activity = context;
         this.cryptoCurrencyList = currencyList;
+        this.selectedCurrency = currency;
     }
 
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -43,7 +44,7 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
         @BindView(R.id.name) TextView name;
         @BindView(R.id.rank) TextView rank;
         @BindView(R.id.symbol) TextView symbol;
-        @BindView(R.id.priceUsd) TextView priceUsd;
+        @BindView(R.id.price) TextView price;
         @BindView(R.id.percentChange24h) TextView percentChange24h;
 
         public RecyclerViewHolder(View itemView) {
@@ -69,7 +70,7 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
         //holder.rank.setText(cryptoCurrencyList.get(position).getRank());
         holder.rank.setText("Rank: "+String.valueOf(cryptoCurrencyList.get(position).getRank()));
         holder.symbol.setText("Symbol: "+cryptoCurrencyList.get(position).getSymbol());
-        holder.priceUsd.setText("Fiat Currency: "+String.valueOf(cryptoCurrencyList.get(position).getPriceUsd()));
+        holder.price.setText("Price: "+String.valueOf(getFiatCurrencyPrice(position, selectedCurrency)));
         holder.percentChange24h.setText("24 hour change: "+String.valueOf(cryptoCurrencyList.get(position).getPercentChange24h()));
 
         //holder.word.setText(word);
@@ -84,17 +85,18 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
             intent.putExtra("name", cryptoCurrencyList.get(position).getName());
             intent.putExtra("symbol", cryptoCurrencyList.get(position).getSymbol());
             intent.putExtra("rank", cryptoCurrencyList.get(position).getRank());
-            intent.putExtra("priceUsd", cryptoCurrencyList.get(position).getPriceUsd());
-            //intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
-            intent.putExtra("_24hVolumeUsd", cryptoCurrencyList.get(position).get24hVolumeUsd());
-            intent.putExtra("marketCapUsd", cryptoCurrencyList.get(position).getMarketCapUsd());
+            intent.putExtra("price", getFiatCurrencyPrice(position, selectedCurrency));
+            intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
+            intent.putExtra("_24hVolume", get24hVolume(position, selectedCurrency));
+            intent.putExtra("marketCap", getMarketCap(position, selectedCurrency));
             intent.putExtra("availableSupply", cryptoCurrencyList.get(position).getAvailableSupply());
             intent.putExtra("totalSupply", cryptoCurrencyList.get(position).getTotalSupply());
             intent.putExtra("percentChange1h", cryptoCurrencyList.get(position).getPercentChange1h());
             intent.putExtra("percentChange24h", cryptoCurrencyList.get(position).getPercentChange24h());
             intent.putExtra("percentChange7d", cryptoCurrencyList.get(position).getPercentChange7d());
-            //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated());
+            //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated())
 
+            /** show CryptoCurrencyDetailActivity */
             final int REQUEST_CODE = 123;  // The request code
             activity.startActivityForResult(intent,REQUEST_CODE);
             }
@@ -121,7 +123,44 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
         selectedPosition=pos;
     }
 
+    private Double getFiatCurrencyPrice(int position, String currency) {
+        switch (currency) {
+            case "USD":
+                return cryptoCurrencyList.get(position).getPriceUsd();
+            case "EUR":
+                return cryptoCurrencyList.get(position).getPriceEur();
+            case "CNY":
+                return cryptoCurrencyList.get(position).getPriceCny();
+            default:
+                return cryptoCurrencyList.get(position).getPriceUsd();
+        }
+    }
 
+    private Double get24hVolume(int position, String currency) {
+        switch (currency) {
+            case "USD":
+                return cryptoCurrencyList.get(position).get24hVolumeUsd();
+            case "EUR":
+                return cryptoCurrencyList.get(position).get24hVolumeEur();
+            case "CNY":
+                return cryptoCurrencyList.get(position).get24hVolumeCny();
+            default:
+                return cryptoCurrencyList.get(position).get24hVolumeUsd();
+        }
+    }
+
+    private Double getMarketCap(int position, String currency) {
+        switch (currency) {
+            case "USD":
+                return cryptoCurrencyList.get(position).getMarketCapUsd();
+            case "EUR":
+                return cryptoCurrencyList.get(position).getMarketCapEur();
+            case "CNY":
+                return cryptoCurrencyList.get(position).getMarketCapCny();
+            default:
+                return cryptoCurrencyList.get(position).getMarketCapUsd();
+        }
+    }
 }
 
 

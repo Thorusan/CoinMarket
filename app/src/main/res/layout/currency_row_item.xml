@@ -42,7 +42,7 @@
                 android:text="symbol"/>
 
             <TextView
-                android:id="@+id/priceUsd"
+                android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/symbol"
@@ -52,7 +52,7 @@
                 android:id="@+id/percentChange24h"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/priceUsd"
+                android:layout_below="@+id/price"
                 android:text="24 hour change"/>
 
 

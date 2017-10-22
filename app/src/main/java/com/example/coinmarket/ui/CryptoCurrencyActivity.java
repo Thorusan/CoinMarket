@@ -48,7 +48,7 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
 
 
             String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
-            if (currency == null) currency ="EUR";
+            if (currency == null) currency ="USD"; // default currenty is USD
 
             int limit = 100; // limit top results
 
@@ -124,7 +124,8 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
     }
 
     private void setCryptoCurrencyListAdapter() {
-        cryptoCurrencyListAdapter = new CryptoCurrencyListAdapter(this, cryptoCurrencyList);
+        String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
+        cryptoCurrencyListAdapter = new CryptoCurrencyListAdapter(this, cryptoCurrencyList, currency);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
