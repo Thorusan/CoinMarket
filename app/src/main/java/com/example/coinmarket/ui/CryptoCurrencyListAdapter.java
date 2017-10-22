@@ -2,7 +2,6 @@ package com.example.coinmarket.ui;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +15,7 @@ import com.example.thorus.coinmarket.R;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
@@ -39,36 +39,18 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
     class RecyclerViewHolder extends RecyclerView.ViewHolder {
         public int index;
 
-        /*@BindView(R.id.cv) CardView cv;
+        @BindView(R.id.cv) CardView cv;
         @BindView(R.id.name) TextView name;
         @BindView(R.id.rank) TextView rank;
         @BindView(R.id.symbol) TextView symbol;
-        @BindView(R.id.fiat_currency) TextView fiatCurrency;
-        @BindView(R.id.hour_change_24) TextView percentChange24h;*/
-
-        CardView cv;
-        TextView name;
-        TextView rank;
-        TextView symbol;
-        TextView fiatCurrency;
-        TextView percentChange24h;
-
+        @BindView(R.id.priceUsd) TextView priceUsd;
+        @BindView(R.id.percentChange24h) TextView percentChange24h;
 
         public RecyclerViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView)itemView.findViewById(R.id.cv);
-            name = (TextView) itemView.findViewById(R.id.name);
 
-            rank = (TextView) itemView.findViewById(R.id.rank);
-            symbol = (TextView) itemView.findViewById(R.id.symbol);
-            fiatCurrency = (TextView) itemView.findViewById(R.id.fiat_currency);
-            percentChange24h = (TextView) itemView.findViewById(R.id.hour_change_24);
-
-
-            // Make this view clickable
             itemView.setClickable(true);
             ButterKnife.bind(this, itemView);
-
         }
     }
 
@@ -87,7 +69,7 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
         //holder.rank.setText(cryptoCurrencyList.get(position).getRank());
         holder.rank.setText("Rank: "+String.valueOf(cryptoCurrencyList.get(position).getRank()));
         holder.symbol.setText("Symbol: "+cryptoCurrencyList.get(position).getSymbol());
-        holder.fiatCurrency.setText("Fiat Currency: "+String.valueOf(cryptoCurrencyList.get(position).getPriceUsd()));
+        holder.priceUsd.setText("Fiat Currency: "+String.valueOf(cryptoCurrencyList.get(position).getPriceUsd()));
         holder.percentChange24h.setText("24 hour change: "+String.valueOf(cryptoCurrencyList.get(position).getPercentChange24h()));
 
         //holder.word.setText(word);
@@ -96,18 +78,25 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
             public void onClick(View view) {
                 setSelectedPosition(position);
 
-                Bundle bundle= new Bundle();
-                //bundle.putString("word", word);
-                //bundle.putInt("position", position);
-
                 Intent intent = new Intent(activity, CryptoCurrencyDetailActivity.class);
-                intent.putExtras(bundle);
 
-                final int REQUEST_CODE = 1;  // The request code
+                intent.putExtra("id", cryptoCurrencyList.get(position).getId());
+                intent.putExtra("name", cryptoCurrencyList.get(position).getName());
+                intent.putExtra("symbol", cryptoCurrencyList.get(position).getSymbol());
+                intent.putExtra("rank", cryptoCurrencyList.get(position).getRank());
+                intent.putExtra("priceUsd", cryptoCurrencyList.get(position).getPriceUsd());
+                //intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
+                intent.putExtra("_24hVolumeUsd", cryptoCurrencyList.get(position).get24hVolumeUsd());
+                intent.putExtra("marketCapUsd", cryptoCurrencyList.get(position).getMarketCapUsd());
+                intent.putExtra("availableSupply", cryptoCurrencyList.get(position).getAvailableSupply());
+                intent.putExtra("totalSupply", cryptoCurrencyList.get(position).getTotalSupply());
+                intent.putExtra("percentChange1h", cryptoCurrencyList.get(position).getPercentChange1h());
+                intent.putExtra("percentChange24h", cryptoCurrencyList.get(position).getPercentChange24h());
+                intent.putExtra("percentChange7d", cryptoCurrencyList.get(position).getPercentChange7d());
+                //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated());
+
+                final int REQUEST_CODE = 123;  // The request code
                 activity.startActivityForResult(intent,REQUEST_CODE);
-
-                // WordsAdapter.this.notifyDataSetChanged();
-                notifyDataSetChanged();
             }
         });
 

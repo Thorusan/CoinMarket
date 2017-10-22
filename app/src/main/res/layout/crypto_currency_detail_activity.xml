@@ -1,0 +1,90 @@
+<RelativeLayout android:layout_width="368dp"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="name"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/rank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/name"
+            android:text="rank"/>
+
+        <TextView
+            android:id="@+id/symbol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rank"
+            android:text="symbol"/>
+
+        <TextView
+            android:id="@+id/priceUsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/symbol"
+            android:text="fiat_currency"/>
+
+        <TextView
+            android:id="@+id/_24hVolumeUsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/priceUsd"
+            android:text="priceUsd"/>
+
+        <TextView
+            android:id="@+id/marketCapUsd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/_24hVolumeUsd"
+            android:text="marketCapUsd"/>
+
+        <TextView
+            android:id="@+id/availableSupply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/marketCapUsd"
+            android:text="availableSupply"/>
+
+        <TextView
+            android:id="@+id/totalSupply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/availableSupply"
+            android:text="totalSupply"/>
+
+        <TextView
+            android:id="@+id/percentChange1h"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/totalSupply"
+            android:text="percentChange1h"/>
+
+        <TextView
+            android:id="@+id/percentChange24h"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/percentChange1h"
+            android:text="percentChange24h"/>
+
+        <TextView
+            android:id="@+id/percentChange7d"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/percentChange24h"
+            android:text="percentChange7d"/>
+
+    </RelativeLayout>

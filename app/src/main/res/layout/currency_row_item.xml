@@ -42,17 +42,17 @@
                 android:text="symbol"/>
 
             <TextView
-                android:id="@+id/fiat_currency"
+                android:id="@+id/priceUsd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/symbol"
                 android:text="fiat_currency"/>
 
             <TextView
-                android:id="@+id/hour_change_24"
+                android:id="@+id/percentChange24h"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fiat_currency"
+                android:layout_below="@+id/priceUsd"
                 android:text="24 hour change"/>
 
 
