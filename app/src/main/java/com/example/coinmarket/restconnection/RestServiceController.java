@@ -10,8 +10,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-
 public class RestServiceController {
 
     private final Activity activity;
@@ -22,16 +20,15 @@ public class RestServiceController {
          this.restDataCallback = callback;
      }
 
-
     /**
      * Server API authentication
      * @return response: apiToken in String
      * {"Status":"success","ApiToken":"android_59a2d5be738730.31286605"}
      * */
-    public void getCurrencyData(String currency) {
+    public void getCurrencyDataAndSetList(String currency, int limit) {
         try {
             RestService service = RestServiceSingleton.getInstance().getApiService();
-            service.getCurrencyData().enqueue(callback);
+            service.getCurrencyData(currency, limit).enqueue(callback);
         } catch (Exception ex) {
             System.out.println("Error has occured:"+ex.getMessage());
         }
@@ -44,9 +41,7 @@ public class RestServiceController {
                 if(response.isSuccessful()) {
                     System.out.print("test");
                     //Looper test = Looper.getMainLooper(); // check if running un UI thread
-
                     restDataCallback.passCurrencyDataAndSetAdapter(response.body());
-
                     /*activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -59,7 +54,6 @@ public class RestServiceController {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
-
         }
         @Override
         public void onFailure(Call<List<CryptoCurrency>> call, Throwable t) {

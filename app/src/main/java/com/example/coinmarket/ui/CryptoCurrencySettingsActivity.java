@@ -15,6 +15,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.example.coinmarket.data.SharedPrefVariables;
 import com.example.thorus.coinmarket.R;
 
 import butterknife.BindView;
@@ -72,26 +73,22 @@ public class CryptoCurrencySettingsActivity extends AppCompatActivity {
      * Save selected currency to Shared Preferences
      */
     private void saveCurrencyInPreference() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
         int selectedId = radioCurrencyGroup.getCheckedRadioButtonId();
         switch (selectedId) {
             case R.id.radioUSD:
-                editor.putString("curency", "USD");
+                SharedPrefVariables.storeCurrencyToSharedPreferences(this, "USD");
                 break;
             case R.id.radioEUR:
-                editor.putString("curency", "EUR");
+                SharedPrefVariables.storeCurrencyToSharedPreferences(this, "EUR");
                 break;
             case R.id.radioCNY:
-                editor.putString("curency", "CNY");
+                SharedPrefVariables.storeCurrencyToSharedPreferences(this, "CNY");
                 break;
             default:
-                editor.putString("curency", "USD");
+                SharedPrefVariables.storeCurrencyToSharedPreferences(this, "USD");
                 break;
         }
-        editor.commit();
     }
 
-    private String selectedCurrency = "USD";
+    private String selectedCurrency = "EUR";
 }

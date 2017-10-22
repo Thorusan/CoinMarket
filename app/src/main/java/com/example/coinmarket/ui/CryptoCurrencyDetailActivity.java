@@ -29,7 +29,6 @@ public class CryptoCurrencyDetailActivity extends AppCompatActivity {
     @BindView(R.id.percentChange24h) TextView percentChange24h;
     @BindView(R.id.percentChange7d) TextView percentChange7d;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {

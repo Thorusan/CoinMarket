@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.coinmarket.data.SharedPrefVariables;
 import com.example.coinmarket.restconnection.RestDataCallback;
 import com.example.coinmarket.restconnection.response.CryptoCurrency;
 import com.example.thorus.coinmarket.R;
@@ -42,15 +43,17 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
 
             // Bind views
             ButterKnife.bind(this);
-
             // set toolbar for Settings
             setSupportActionBar(toolbar);
 
+
+            String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
+            if (currency == null) currency ="EUR";
+
+            int limit = 100; // limit top results
+
             // Retrofit network call for gettings the list of Cryptocurrencies
-            String currency ="EUR";
-            int limit = 10;
-            RestServiceController controller = new RestServiceController(this, CryptoCurrencyActivity.this);
-            controller.getCurrencyData(currency);
+            callRetrofitServiceAndSetCurrencyList(currency, limit);
         } catch (Exception ex) {
            System.out.println(ex.getMessage());
         }
@@ -87,10 +90,12 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_SETTINGS){
             if(resultCode == RESULT_OK){
+                //here is the result
                 if (data.hasExtra("currency")) {
                     String selectedCurrency = data.getStringExtra("currency");
+                    int limit = 100;
+                    callRetrofitServiceAndSetCurrencyList(selectedCurrency, limit);
                 }
-                //here is the result
             }
             if (resultCode == RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -98,6 +103,18 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
             }
         }
     }
+
+    //region Network Service
+
+    private void callRetrofitServiceAndSetCurrencyList(String currency,  int limit) {
+
+        RestServiceController controller = new RestServiceController(this, CryptoCurrencyActivity.this);
+        controller.getCurrencyDataAndSetList(currency, limit);
+    }
+
+    //endregion
+
+    //region Interface methods
 
     @Override
     public void passCurrencyDataAndSetAdapter(List<CryptoCurrency> cryptoCurrencyList) {
@@ -112,8 +129,9 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(cryptoCurrencyListAdapter);
-
     }
+
+    //endregion
 
     private static final int REQUEST_CODE_SETTINGS = 10;
 }

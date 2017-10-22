@@ -6,14 +6,17 @@ import com.example.coinmarket.restconnection.response.CryptoCurrency;
 import java.util.List;
 
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface RestService {
 
     /*@GET()
-    retrofit2.Call<CryptoCurrencyResponse> getCurrencyData(@Field("convert") String convert,
+    retrofit2.Call<CryptoCurrencyResponse> getCurrencyDataAndSetList(@Field("convert") String convert,
                                                        @Field("limit") int limit);*/
-    @GET("/v1/ticker/?convert=EUR&limit=100")
-    retrofit2.Call<List<CryptoCurrency>> getCurrencyData();
+    @GET("/v1/ticker/")
+    retrofit2.Call<List<CryptoCurrency>> getCurrencyData
+    (@Query("convert") String convert,
+     @Query("limit") int limit);
 
 
     /** Important Server Urls */
