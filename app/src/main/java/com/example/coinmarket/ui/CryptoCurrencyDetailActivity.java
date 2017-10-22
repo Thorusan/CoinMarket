@@ -1,11 +1,13 @@
 package com.example.coinmarket.ui;
 
+import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.thorus.coinmarket.R;
 
@@ -88,16 +90,35 @@ public class CryptoCurrencyDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                return true;
+            case R.id.action_settings:
+                Intent intent = new Intent(this, CryptoCurrencySettingsActivity.class);
+                startActivityForResult(intent,CryptoCurrencyActivity.REQUEST_CODE_SETTINGS);
+                return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CryptoCurrencyActivity.REQUEST_CODE_SETTINGS){
+            if(resultCode == RESULT_OK){
+                //here is the result
+                if (data.hasExtra("currency")) {
+                    String selectedCurrency = data.getStringExtra("currency");
+                    int limit = 100;
+                    //callRetrofitServiceAndSetCurrencyList(selectedCurrency, limit);
+                }
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //Write your code if there's no result
+                Toast.makeText(getApplicationContext(), "Nothing was changed!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

@@ -68,10 +68,6 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -134,5 +130,5 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
 
     //endregion
 
-    private static final int REQUEST_CODE_SETTINGS = 10;
+    public static final int REQUEST_CODE_SETTINGS = 10;
 }
