@@ -60,6 +60,7 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
                 @Override
                 public void onRefresh() {
                     // Refresh items
+                    String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(CryptoCurrencyActivity.this);
                     callRetrofitServiceAndSetCurrencyList(currency, limit);
                 }
             });
