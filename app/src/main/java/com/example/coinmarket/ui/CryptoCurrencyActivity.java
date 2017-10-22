@@ -2,6 +2,7 @@ package com.example.coinmarket.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,6 +31,7 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
     @BindView(R.id.edit_search) EditText editWord;
     @BindView(R.id.btn_search) Button searchBtn;
+    @BindView(R.id.swiperefresh) SwipeRefreshLayout swiperefresh;
 
     int touchPosition=-1;
     CryptoCurrencyListAdapter cryptoCurrencyListAdapter;
@@ -46,14 +48,20 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
             // set toolbar for Settings
             setSupportActionBar(toolbar);
 
+            //if (currency == null) currency ="USD"; // default currenty is USD
 
-            String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
-            if (currency == null) currency ="USD"; // default currenty is USD
-
-            int limit = 100; // limit top results
+            final int limit = 100; // limit top results
 
             // Retrofit network call for gettings the list of Cryptocurrencies
             callRetrofitServiceAndSetCurrencyList(currency, limit);
+
+            swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    // Refresh items
+                    callRetrofitServiceAndSetCurrencyList(currency, limit);
+                }
+            });
         } catch (Exception ex) {
            System.out.println(ex.getMessage());
         }
@@ -126,6 +134,9 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(cryptoCurrencyListAdapter);
+
+        // Stop refresh animation
+        swiperefresh.setRefreshing(false);
     }
 
     //endregion
