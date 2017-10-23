@@ -3,6 +3,7 @@ package com.example.coinmarket.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coinmarket.data.SharedPrefVariables;
@@ -29,8 +31,9 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recycler_view) RecyclerView recyclerView;
-    @BindView(R.id.edit_search) EditText editWord;
-    @BindView(R.id.btn_search) Button searchBtn;
+    @BindView(R.id.text_current_currency)TextView textCurrentCurrency;
+    //@BindView(R.id.edit_search) EditText editWord;
+    //@BindView(R.id.btn_search) Button searchBtn;
     @BindView(R.id.swiperefresh) SwipeRefreshLayout swiperefresh;
 
     int touchPosition=-1;
@@ -49,13 +52,14 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
             setSupportActionBar(toolbar);
 
             final String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
-            //if (currency == null) currency ="USD"; // default currenty is USD
-
             final int limit = 100; // limit top results
 
             // Retrofit network call for gettings the list of Cryptocurrencies
             callRetrofitServiceAndSetCurrencyList(currency, limit);
 
+            textCurrentCurrency.setText("Prices are in currency: " +currency);
+
+            // register listener
             swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -100,6 +104,7 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
                 if (data.hasExtra("currency")) {
                     String selectedCurrency = data.getStringExtra("currency");
                     int limit = 100;
+                    textCurrentCurrency.setText("Prices are in currency: " +selectedCurrency);
                     callRetrofitServiceAndSetCurrencyList(selectedCurrency, limit);
                 }
             }
@@ -142,6 +147,12 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
     }
 
     //endregion
+
+    //region  MEthods
+
+
+
+    //enregion
 
     public static final int REQUEST_CODE_SETTINGS = 10;
 }
