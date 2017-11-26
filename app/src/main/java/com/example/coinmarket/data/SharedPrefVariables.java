@@ -17,7 +17,7 @@ public class SharedPrefVariables {
         } else {
             editor.putString(ACCESS_CURRENCY, currency);
         }
-        editor.commit();
+        editor.apply();
     }
 
     public static String getCurrencyFromSharedPreferences(Context context) {

@@ -24,7 +24,7 @@
         </activity>
         <activity
             android:name="com.example.coinmarket.ui.CryptoCurrencyDetailActivity"
-            android:label="CoinMarket Details">
+            android:label="@string/activity_detail_title">
         </activity>
         <activity android:name="com.example.coinmarket.ui.CryptoCurrencySettingsActivity">
         </activity>

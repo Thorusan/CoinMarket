@@ -20,35 +20,23 @@ import butterknife.ButterKnife;
 
 
 public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurrencyListAdapter.RecyclerViewHolder> {
-    private final String selectedCurrency;
+    private String selectedCurrency;
     private Activity activity;
-
     private int selectedPosition = 0;
-    private String selectedWord=null;
     private List<CryptoCurrency> cryptoCurrencyList;
 
-    public CryptoCurrencyListAdapter(Activity context, List<CryptoCurrency> currencyList, String currency) {
+    public CryptoCurrencyListAdapter(Activity context, String currency, List<CryptoCurrency> currencyList) {
         this.activity = context;
-        this.cryptoCurrencyList = currencyList;
+        setCurrency(currency);
+        setCurrencyList(currencyList);
+    }
+
+    public void setCurrency(String currency) {
         this.selectedCurrency = currency;
     }
 
-    class RecyclerViewHolder extends RecyclerView.ViewHolder {
-        public int index;
-
-        @BindView(R.id.cv) CardView cv;
-        @BindView(R.id.name) TextView name;
-        @BindView(R.id.rank) TextView rank;
-        @BindView(R.id.symbol) TextView symbol;
-        @BindView(R.id.price) TextView price;
-        @BindView(R.id.percentChange24h) TextView percentChange24h;
-
-        public RecyclerViewHolder(View itemView) {
-            super(itemView);
-
-            itemView.setClickable(true);
-            ButterKnife.bind(this, itemView);
-        }
+    public void setCurrencyList(List<CryptoCurrency> currencyList) {
+        this.cryptoCurrencyList = currencyList;
     }
 
     @Override
@@ -60,50 +48,54 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
 
     @Override
     public void onBindViewHolder(final RecyclerViewHolder holder, final int position) {
-        holder.index=position;
+        holder.index = position;
         //final String word = wordsList.get(position).getText();
         holder.name.setText(cryptoCurrencyList.get(position).getName());
         //holder.rank.setText(cryptoCurrencyList.get(position).getRank());
-        holder.rank.setText("Rank: "+String.valueOf(cryptoCurrencyList.get(position).getRank()));
-        holder.symbol.setText("Symbol: "+cryptoCurrencyList.get(position).getSymbol());
-        holder.price.setText("Price: "+String.valueOf(getFiatCurrencyPrice(position, selectedCurrency)));
-        holder.percentChange24h.setText("24 hour change: "+String.valueOf(cryptoCurrencyList.get(position).getPercentChange24h()));
+        holder.rank.setText(activity.getString(R.string.rank_list) + String.valueOf(cryptoCurrencyList.get(position).getRank()));
+        holder.symbol.setText(activity.getString(R.string.symbol_list) + cryptoCurrencyList.get(position).getSymbol());
+        holder.price.setText(activity.getString(R.string.price_list) + String.valueOf(getFiatCurrencyPrice(position, selectedCurrency)));
+        holder.percentChange24h.setText(activity.getString(R.string._24_hourc_change_list) + String.valueOf(cryptoCurrencyList.get(position).getPercentChange24h()));
+
+
+        if (getSelectedPosition() == position) {
+            holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorSelected));    // selected
+        } else {
+            holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorNotSelected)); // not selected
+        }
 
         //holder.word.setText(word);
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            setSelectedPosition(position);
+                setSelectedPosition(position);
 
-            Intent intent = new Intent(activity, CryptoCurrencyDetailActivity.class);
+                Intent intent = new Intent(activity, CryptoCurrencyDetailActivity.class);
 
-            intent.putExtra("id", cryptoCurrencyList.get(position).getId());
-            intent.putExtra("name", cryptoCurrencyList.get(position).getName());
-            intent.putExtra("symbol", cryptoCurrencyList.get(position).getSymbol());
-            intent.putExtra("rank", cryptoCurrencyList.get(position).getRank());
-            intent.putExtra("price", getFiatCurrencyPrice(position, selectedCurrency));
-            intent.putExtra("priceBtc", cryptoCurrencyList.get(position).getPriceBtc());
-            intent.putExtra("_24hVolume", get24hVolume(position, selectedCurrency));
-            intent.putExtra("marketCap", getMarketCap(position, selectedCurrency));
-            intent.putExtra("availableSupply", cryptoCurrencyList.get(position).getAvailableSupply());
-            intent.putExtra("totalSupply", cryptoCurrencyList.get(position).getTotalSupply());
-            intent.putExtra("percentChange1h", cryptoCurrencyList.get(position).getPercentChange1h());
-            intent.putExtra("percentChange24h", cryptoCurrencyList.get(position).getPercentChange24h());
-            intent.putExtra("percentChange7d", cryptoCurrencyList.get(position).getPercentChange7d());
-            //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated())
+                intent.putExtra(activity.getString(R.string.id), cryptoCurrencyList.get(position).getId());
+                intent.putExtra(activity.getString(R.string.name), cryptoCurrencyList.get(position).getName());
+                intent.putExtra(activity.getString(R.string.symbol), cryptoCurrencyList.get(position).getSymbol());
+                intent.putExtra(activity.getString(R.string.rank), cryptoCurrencyList.get(position).getRank());
+                intent.putExtra(activity.getString(R.string.price), getFiatCurrencyPrice(position, selectedCurrency));
+                intent.putExtra(activity.getString(R.string.priceBtc), cryptoCurrencyList.get(position).getPriceBtc());
+                intent.putExtra(activity.getString(R.string._24hVolume), get24hVolume(position, selectedCurrency));
+                intent.putExtra(activity.getString(R.string.marketCap), getMarketCap(position, selectedCurrency));
+                intent.putExtra(activity.getString(R.string.availableSupply), cryptoCurrencyList.get(position).getAvailableSupply());
+                intent.putExtra(activity.getString(R.string.totalSupply), cryptoCurrencyList.get(position).getTotalSupply());
+                intent.putExtra(activity.getString(R.string.percentChange1h), cryptoCurrencyList.get(position).getPercentChange1h());
+                intent.putExtra(activity.getString(R.string.percentChange24h), cryptoCurrencyList.get(position).getPercentChange24h());
+                intent.putExtra(activity.getString(R.string.percentChange7d), cryptoCurrencyList.get(position).getPercentChange7d());
+                //intent.putExtra("lastUpdated", cryptoCurrencyList.get(position).getLastUpdated())
 
-            /** show CryptoCurrencyDetailActivity */
-            final int REQUEST_CODE = 123;  // The request code
-            activity.startActivityForResult(intent,REQUEST_CODE);
+                /** show CryptoCurrencyDetailActivity */
+                final int REQUEST_CODE = 123;  // The request code
+                activity.startActivityForResult(intent, REQUEST_CODE);
+
+                notifyDataSetChanged();
             }
-        });
-
-        if (getSelectedPosition()==position) {
-            holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorSelected));    // selected
-        } else {
-            holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorNotSelected)); // not selected
-        }
+         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -115,7 +107,7 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
     }
 
     public void setSelectedPosition(int pos) {
-        selectedPosition=pos;
+        selectedPosition = pos;
     }
 
     private Double getFiatCurrencyPrice(int position, String currency) {
@@ -154,6 +146,30 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
                 return cryptoCurrencyList.get(position).getMarketCapCny();
             default:
                 return cryptoCurrencyList.get(position).getMarketCapUsd();
+        }
+    }
+
+    class RecyclerViewHolder extends RecyclerView.ViewHolder {
+        public int index;
+
+        @BindView(R.id.cv)
+        CardView cv;
+        @BindView(R.id.name)
+        TextView name;
+        @BindView(R.id.rank)
+        TextView rank;
+        @BindView(R.id.symbol)
+        TextView symbol;
+        @BindView(R.id.price)
+        TextView price;
+        @BindView(R.id.percentChange24h)
+        TextView percentChange24h;
+
+        public RecyclerViewHolder(View itemView) {
+            super(itemView);
+
+            itemView.setClickable(true);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

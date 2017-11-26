@@ -100,4 +100,22 @@
     <string name="symbol">symbol</string>
     <string name="fiat_currency_row">Currency Fiat:</string>
     <string name="_24_hour_change">24 hour change</string>
+    <string name="rank_list">Rank:</string>
+    <string name="symbol_list">Symbol:</string>
+    <string name="price_list">Price:</string>
+    <string name="_24_hourc_change_list">24 hour change:</string>
+    <string name="id">id</string>
+    <string name="price">price</string>
+    <string name="priceBtc">priceBtc</string>
+    <string name="_24hVolume">_24hVolume</string>
+    <string name="marketCap">marketCap</string>
+    <string name="availableSupply">availableSupply</string>
+    <string name="totalSupply">totalSupply</string>
+    <string name="percentChange1h">percentChange1h</string>
+    <string name="percentChange24h">percentChange24h</string>
+    <string name="percentChange7d">percentChange7d</string>
+    <string name="activity_detail_title">Cryptocurrency detail</string>
+    <string name="crypto_currency_prices">Cryptocurrency prices are in :</string>
+    <string name="currency_selected">currencySelected</string>
+    <string name="choosen_fiat_currency_message">You have choosen the fiat currency:</string>
 </resources>
