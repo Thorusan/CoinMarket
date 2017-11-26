@@ -78,4 +78,26 @@
     <string name="radio_EUR">EUR</string>
     <string name="radio_CNY">CNY</string>
     <string name="btn_confirm">Save</string>
+    <string name="network_connection_failed_dialog_title">Network connection</string>
+    <string name="network_connection_failed_dialog_message">Network connection is online. Can\'t get data!</string>
+    <string name="prices_currency">Prices are in currency:</string>
+    <string name="search">Search</string>
+    <string name="select_on_of_the_following_fiat_currencies">select_currencies</string>
+    <string name="currency_name">Currency name: </string>
+    <string name="currency_rank">Currency rank:</string>
+    <string name="currency_symbol">Currency smbol:</string>
+    <string name="fiat_currency">Currency Fiat:</string>
+    <string name="currency_price_usd">Price USD;</string>
+    <string name="market_cap_usd">Market cap USD:</string>
+    <string name="price_btc">Price Btc:</string>
+    <string name="percentchange1h">percentChange1h</string>
+    <string name="percentchange24h">percentChange24h</string>
+    <string name="percentchange7d">percentChange7d</string>
+    <string name="totalsupply">totalSupply</string>
+    <string name="availablesupply">availableSupply</string>
+    <string name="name">name</string>
+    <string name="rank">rank</string>
+    <string name="symbol">symbol</string>
+    <string name="fiat_currency_row">Currency Fiat:</string>
+    <string name="_24_hour_change">24 hour change</string>
 </resources>

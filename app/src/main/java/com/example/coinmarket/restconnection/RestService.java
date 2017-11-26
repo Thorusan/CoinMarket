@@ -10,17 +10,15 @@ import retrofit2.http.Query;
 
 public interface RestService {
 
-    /*@GET()
-    retrofit2.Call<CryptoCurrencyResponse> getCurrencyDataAndSetList(@Field("convert") String convert,
-                                                       @Field("limit") int limit);*/
+    /**
+     * Important Server Urls
+     */
+    String dataURl = "https://api.coinmarketcap.com/v1/ticker/";
+
     @GET("/v1/ticker/")
     retrofit2.Call<List<CryptoCurrency>> getCurrencyData
     (@Query("convert") String convert,
      @Query("limit") int limit);
-
-
-    /** Important Server Urls */
-    String dataURl = "https://api.coinmarketcap.com/v1/ticker/";
 
 
 }

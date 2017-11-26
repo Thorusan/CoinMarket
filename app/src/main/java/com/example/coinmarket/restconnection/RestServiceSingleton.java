@@ -9,7 +9,6 @@ public class RestServiceSingleton {
         if (instance == null) {
             instance = new RestServiceSingleton();
         }
-
         return instance;
     }
 

@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
-              android:orientation="vertical" >
+              android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select on of the following fiat currencies:"
-        android:textStyle="bold"
-        android:paddingTop="10dp"
         android:paddingBottom="15dp"
         android:paddingLeft="5dp"
-        android:textSize="@dimen/hint_settings"/>
+        android:paddingTop="10dp"
+        android:text="@string/select_on_of_the_following_fiat_currencies"
+        android:textSize="@dimen/hint_settings"
+        android:textStyle="bold"/>
 
     <RadioGroup
         android:id="@+id/radioCurrency"
@@ -25,28 +25,28 @@
             android:id="@+id/radioUSD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_USD"
-            android:checked="true" />
+            android:checked="true"
+            android:text="@string/radio_USD"/>
 
         <RadioButton
             android:id="@+id/radioEUR"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_EUR" />
+            android:text="@string/radio_EUR"/>
 
         <RadioButton
             android:id="@+id/radioCNY"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/radio_CNY" />
+            android:text="@string/radio_CNY"/>
     </RadioGroup>
 
     <Button
         android:id="@+id/btnConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn_confirm"
         android:layout_gravity="center"
-       />
+        android:text="@string/btn_confirm"
+        />
 
 </LinearLayout>

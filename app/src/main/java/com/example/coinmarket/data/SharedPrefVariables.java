@@ -22,7 +22,7 @@ public class SharedPrefVariables {
 
     public static String getCurrencyFromSharedPreferences(Context context) {
         SharedPreferences prefs = context.getSharedPreferences("server", Context.MODE_PRIVATE);
-        String currency = prefs.getString(ACCESS_CURRENCY, null);
+        String currency = prefs.getString(ACCESS_CURRENCY, "USD");
         return currency;
     }
 

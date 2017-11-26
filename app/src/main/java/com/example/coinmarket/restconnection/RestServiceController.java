@@ -37,27 +37,14 @@ public class RestServiceController {
     Callback<List<CryptoCurrency>> callback = new Callback<List<CryptoCurrency>>() {
         @Override
         public void onResponse(Call<List<CryptoCurrency>> call, final Response<List<CryptoCurrency>> response) {
-            try {
-                if(response.isSuccessful()) {
-                    System.out.print("test");
-                    //Looper test = Looper.getMainLooper(); // check if running un UI thread
-                    restDataCallback.passCurrencyDataAndSetAdapter(response.body());
-                    /*activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            //TODO: update your UI
-                            restDataCallback.passCurrencyDataAndSetAdapter(response);
-                        }
-
-                    });*/
-                }
-            } catch (Exception ex) {
-                //System.out.println(ex.getMessage());
-
+            if(response.isSuccessful()) {
+                restDataCallback.passCurrencyDataAndSetAdapter(response.body());
             }
+
         }
         @Override
         public void onFailure(Call<List<CryptoCurrency>> call, Throwable t) {
+            // Handle error
             System.out.print("test");
         }
     };

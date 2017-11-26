@@ -3,21 +3,20 @@ package com.example.coinmarket.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coinmarket.data.SharedPrefVariables;
 import com.example.coinmarket.restconnection.RestDataCallback;
 import com.example.coinmarket.restconnection.response.CryptoCurrency;
+import com.example.coinmarket.ui.dialogs.DialogsUtil;
+import com.example.coinmarket.utils.NetworkConnection;
 import com.example.thorus.coinmarket.R;
 
 import com.example.coinmarket.restconnection.RestServiceController;
@@ -39,6 +38,8 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
     int touchPosition=-1;
     CryptoCurrencyListAdapter cryptoCurrencyListAdapter;
     List<CryptoCurrency> cryptoCurrencyList;
+    private String currencySelected;
+    private int limit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +52,38 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
             // set toolbar for Settings
             setSupportActionBar(toolbar);
 
-            final String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
-            final int limit = 100; // limit top results
+            currencySelected = SharedPrefVariables.getCurrencyFromSharedPreferences(this);
+            limit = 100; // limit top results
+
+            if (!NetworkConnection.isNetworkAvailable(this)) {
+                DialogsUtil.showDialogNetworkFailed(this);
+                return;
+            }
+
+            populateControls();
 
             // Retrofit network call for gettings the list of Cryptocurrencies
-            callRetrofitServiceAndSetCurrencyList(currency, limit);
+            callRetrofitServiceAndSetCurrencyList(currencySelected, limit);
 
-            textCurrentCurrency.setText("Prices are in currency: " +currency);
 
-            // register listener
-            swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    // Refresh items
-                    String currency = SharedPrefVariables.getCurrencyFromSharedPreferences(CryptoCurrencyActivity.this);
-                    callRetrofitServiceAndSetCurrencyList(currency, limit);
-                }
-            });
         } catch (Exception ex) {
            System.out.println(ex.getMessage());
         }
+    }
+
+    private void populateControls() {
+        // set Currency to text
+        textCurrentCurrency.setText(getString(R.string.prices_currency) + currencySelected);
+
+        // register listener
+        swiperefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Refresh items
+                currencySelected = SharedPrefVariables.getCurrencyFromSharedPreferences(CryptoCurrencyActivity.this);
+                callRetrofitServiceAndSetCurrencyList(currencySelected, limit);
+            }
+        });
     }
 
     @Override
@@ -101,10 +114,10 @@ public class CryptoCurrencyActivity extends AppCompatActivity implements RestDat
         if (requestCode == REQUEST_CODE_SETTINGS){
             if(resultCode == RESULT_OK){
                 //here is the result
-                if (data.hasExtra("currency")) {
-                    String selectedCurrency = data.getStringExtra("currency");
+                if (data.hasExtra("currencySelected")) {
+                    String selectedCurrency = data.getStringExtra("currencySelected");
                     int limit = 100;
-                    textCurrentCurrency.setText("Prices are in currency: " +selectedCurrency);
+                    textCurrentCurrency.setText("Prices are in currencySelected: " +selectedCurrency);
                     callRetrofitServiceAndSetCurrencyList(selectedCurrency, limit);
                 }
             }

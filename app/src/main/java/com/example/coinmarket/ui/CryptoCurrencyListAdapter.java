@@ -19,10 +19,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-/**
- * Created by Ales on 22. 11. 2016.
- */
-
 public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurrencyListAdapter.RecyclerViewHolder> {
     private final String selectedCurrency;
     private Activity activity;
@@ -104,7 +100,6 @@ public class CryptoCurrencyListAdapter extends RecyclerView.Adapter<CryptoCurren
 
         if (getSelectedPosition()==position) {
             holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorSelected));    // selected
-            //wordsAdapterInterface.onWordClicked(); // enable remove button
         } else {
             holder.cv.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorNotSelected)); // not selected
         }

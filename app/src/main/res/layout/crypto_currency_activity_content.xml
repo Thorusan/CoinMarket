@@ -1,42 +1,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.coinmarket.ui.CryptoCurrencyActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              tools:context="com.example.coinmarket.ui.CryptoCurrencyActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/text_current_currency"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:paddingTop="10dp"
+            android:layout_gravity="center"
             android:paddingBottom="10dp"
             android:paddingLeft="5dp"
-            android:layout_gravity="center"
-            android:text="currency displayed"/>
+            android:paddingTop="10dp"
+            android:text=""
+            android:textSize="18sp"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/edit_search"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:hint="Text"
             android:visibility="gone"/>
 
         <Button
             android:id="@+id/btn_search"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:layout_weight="1"
             android:enabled="false"
+            android:text="@string/search"
             android:textSize="15sp"
             android:visibility="gone"/>
     </LinearLayout>

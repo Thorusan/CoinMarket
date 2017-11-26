@@ -112,7 +112,6 @@ public class CryptoCurrencyDetailActivity extends AppCompatActivity {
                 if (data.hasExtra("currency")) {
                     String selectedCurrency = data.getStringExtra("currency");
                     int limit = 100;
-                    //callRetrofitServiceAndSetCurrencyList(selectedCurrency, limit);
                 }
             }
             if (resultCode == RESULT_CANCELED) {
